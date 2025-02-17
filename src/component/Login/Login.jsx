@@ -1,10 +1,12 @@
-import {React, useState} from 'react'
+import {React, useContext, useState} from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { TonkenContext } from '../../Context/TokenContext';
 export default function Login() {
   const [apiError, setApiError] = useState(null);
+  let {setToken}=useContext(TonkenContext)
   let navigate = useNavigate();
 
   const initialValues = {
@@ -23,7 +25,9 @@ export default function Login() {
       setApiError(null);
       let {data} = await axios.post(`http://localhost:3000/auth/login`, values);  
       console.log(data);
-      if (data.message === 'created' || data.token) { // Ensure correct success response
+      if (data.message === 'created' || data.token) {
+        localStorage.setItem("UserToken" ,data.token)
+        setToken(data.token)
         navigate('/home'); 
       }
     } catch (error) {
@@ -39,7 +43,7 @@ export default function Login() {
   return (
     <div className="row">
     <div className="col-md-6 offset-md-3">
-      <div className="my-5">Login</div>
+       <h2 className="my-5">Login</h2>
       {apiError ? <div className="alert alert-danger" role="alert">{apiError}</div> : ''}
 
       <form onSubmit={loginForm.handleSubmit}>
@@ -57,7 +61,7 @@ export default function Login() {
           />
           <label htmlFor="email">Email Address</label>
           {loginForm.errors.email && loginForm.touched.email ? (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger mt-3" role="alert">
               {loginForm.errors.email}
             </div>
           ) : ''}
@@ -76,7 +80,7 @@ export default function Login() {
           />
           <label htmlFor="password">Password</label>
           {loginForm.errors.password && loginForm.touched.password ? (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger mt-3" role="alert">
               {loginForm.errors.password}
             </div>
           ) : ''}

@@ -5,7 +5,7 @@ export default function Loader() {
   return (
  
     <BeatLoader
-  color="#4abed0"
+  color="#000"
 />
   )
 }

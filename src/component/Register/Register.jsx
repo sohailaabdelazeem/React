@@ -18,25 +18,25 @@ export default function Register() {
     userName: Yup.string().min(3, 'Min character three').max(15, 'Max character 15').required('UserName is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
     password: Yup.string().min(4, 'Password must be at least 4 characters').required('Password is required'),
-    confirmPassword: Yup.string()
+    confirePassword: Yup.string()
       .oneOf([Yup.ref('password')], 'Password and Confirm Password should match')
       .required('Confirm password is required')
   });
 
-  async function register(values) {
+  async function register() {
     try {
       setApiError(null);
-      let { data } = await axios.post(`http://localhost:5000/auth/signUP`, values);  
+      let { data } = await axios.post(`http://localhost:3000/auth/signUP`);  
       console.log(data);
-      if (data.message === 'created') {
+      if (data.message == 'created') {
         navigate('/login');
       }
     } catch (error) {
       setApiError(error.response?.data?.message || error.message || 'An error occurred');
     }
   }
-
-
+ 
+  
 
   let registerForm = useFormik({
     initialValues: initialValues,
@@ -47,7 +47,7 @@ export default function Register() {
   return (
     <div className="row">
       <div className="col-md-6 offset-md-3">
-        <div className="my-5">Sign Up</div>
+        <h2 className="my-5">Sign Up</h2>
         {apiError ? <div className="alert alert-danger" role="alert">{apiError}</div> : ''}
 
         <form onSubmit={registerForm.handleSubmit}>
@@ -64,7 +64,7 @@ export default function Register() {
             />
             <label htmlFor="userName">UserName</label>
             {registerForm.errors.userName && registerForm.touched.userName ? (
-              <div className="alert alert-danger" role="alert">
+              <div className="alert alert-danger mt-3" role="alert">
                 {registerForm.errors.userName}
               </div>
             ) : ''}
@@ -83,7 +83,7 @@ export default function Register() {
             />
             <label htmlFor="email">Email Address</label>
             {registerForm.errors.email && registerForm.touched.email ? (
-              <div className="alert alert-danger" role="alert">
+              <div className="alert alert-danger mt-3" role="alert">
                 {registerForm.errors.email}
               </div>
             ) : ''}
@@ -102,7 +102,7 @@ export default function Register() {
             />
             <label htmlFor="password">Password</label>
             {registerForm.errors.password && registerForm.touched.password ? (
-              <div className="alert alert-danger" role="alert">
+              <div className="alert alert-danger mt-3" role="alert">
                 {registerForm.errors.password}
               </div>
             ) : ''}
@@ -114,14 +114,14 @@ export default function Register() {
               className="form-control"
               id="confirmPassword"
               placeholder="Confirm Password"
-              name="confirmPassword"
-              value={registerForm.values.confirmPassword}
+              name="confirePassword"
+              value={registerForm.values.confirePassword}
               onChange={registerForm.handleChange}
               onBlur={registerForm.handleBlur}
             />
             <label htmlFor="confirmPassword">Confirm Password</label>
             {registerForm.errors.confirmPassword && registerForm.touched.confirmPassword ? (
-              <div className="alert alert-danger" role="alert">
+              <div className="alert alert-danger mt-3" role="alert">
                 {registerForm.errors.confirmPassword}
               </div>
             ) : ''}

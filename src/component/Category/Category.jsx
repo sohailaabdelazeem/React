@@ -11,26 +11,25 @@ export default function Category() {
   return (
  
    <>
-      <div>Category</div>
- 
+  
           
        
             <ul className={cssClass(style.listCat)} >
                 
                 <li>
-                    <Link to={'/category'}>electronics</Link>
+                    <Link to={'/category'} className='btn btn-primary m-4'>electronics</Link>
                 </li>
 
                 <li>
-                    <Link to={'jewelery'}>jewelery</Link>
+                    <Link to={'jewelery'} className='btn btn-primary m-4'>jewelery</Link>
                 </li>
 
                 <li>
-                    <Link to={'men'}>men's clothing</Link>
+                    <Link to={'men'} className='btn btn-primary m-4'>men's clothing</Link>
                 </li>
 
                 <li>
-                    <Link to={'women'}>women's clothing</Link>
+                    <Link to={'women'} className='btn btn-primary m-4'>women's clothing</Link>
                 </li>
             </ul>
           

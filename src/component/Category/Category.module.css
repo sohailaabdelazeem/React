@@ -1,11 +1,12 @@
 .listCat {
     display:  flex;
     justify-content: space-around;
-
+    
     
 }
 .listCat li {
     list-style: none;
+    
 
 }
 .listCat li a {
@@ -13,6 +14,6 @@
     color: black;
     font-size: 20px;
 }
-.listCat li a:hover {
+/* .listCat li a:hover {
     color: rgb(126, 126, 224);
-}
+} */

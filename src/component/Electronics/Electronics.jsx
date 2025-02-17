@@ -4,7 +4,7 @@ import ProductItems from '../ProductItems/ProductItems';
 import Loader from '../loader/Loader';
 import axios from 'axios'
 
-export default function Electronics() {
+export default function Electronics({children}) {
   const [products,setProduct]=useState()
   async function getProduct() {
     await axios.get(`https://fakestoreapi.com/products/category/electronics`)
@@ -22,6 +22,9 @@ export default function Electronics() {
 
          <div>
              <div className="row">
+              {
+                children
+              }
                  
              {products && products.length == 0 ? 
              <Loader/>

@@ -15,17 +15,28 @@ import WomenClothing from './component/WomenClothing/WomenClothing'
 import Register from './component/Register/register'
 import Login from './component/Login/Login'
 import axios from 'axios'
+import ProtectRoute from './component/ProtectRoute/ProtectRoute'
+import ProductDetails from './component/ProductDetails/ProductDetails'
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import './App.css'
+
+
 function App() {
   const routes=createBrowserRouter([
     {path:"",element:<LayOut/>,children:[
-      {path:"home",element:<Home/>},
+      {path:"home",element: <ProtectRoute><Home/></ProtectRoute>  },
       // {path:"about",element:<About/>},
-      {path:"contect",element:<Contect/>},
-      {path:"category",element:<Category/> ,children:[
-        {path:'',element:<Electronics/>},
-        {path:'jewelery',element:<Jewelery/>},
-        {path:'men',element:<MenClothing/>},
-        {path:'women',element:<WomenClothing/>},
+      {path:"contect",element: <ProtectRoute> <Contect/>  </ProtectRoute>  },
+
+      {path:"product-details/:id",element: <ProtectRoute> <ProductDetails/>  </ProtectRoute>  },
+
+      {path:"category",element:<ProtectRoute> <Category/>   </ProtectRoute>  ,children:[
+        {path:'',element:<ProtectRoute><Electronics/>  </ProtectRoute>},
+        {path:'jewelery',element: <ProtectRoute><Jewelery/>  </ProtectRoute>},
+        {path:'men',element:<ProtectRoute> <MenClothing/>   </ProtectRoute>},
+        {path:'women',element: <ProtectRoute> <WomenClothing/>  </ProtectRoute>},
       ]},
 
       {path:'register',element:<Register/>},
@@ -39,20 +50,10 @@ function App() {
       {path:"*",element:<NotFound/>}
     ]}
   ])
-  
-
-  // async function AllProduct() {
-  //   let {data}=await axios.get(`https://fakestoreapi.com/products`)
-  //   console.log(data);
-    
-  // }
-
-  // useEffect(()=>{
-  //   AllProduct()
-  // },[])
 
   return (
    <>
+       <ToastContainer />
       <RouterProvider router={routes}></RouterProvider>
        
    </>
