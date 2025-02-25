@@ -2,9 +2,9 @@ import { createContext, useState } from "react";
 
 export let CounterContext=createContext()
 export default function CounterContextProvider({children}) {
-    const [counter,setCounter]=useState(0)
+    const [count,setCounter]=useState(0)
     
-    return <CounterContext.Provider value={{counter,setCounter}}>
+    return <CounterContext.Provider value={{count,setCounter}}>
             {
                 children
             }

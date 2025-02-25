@@ -5,10 +5,18 @@ import { Link } from 'react-router-dom';
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";  
+import { useDispatch, useSelector } from 'react-redux';
+import { decrease, increase } from '../../redux/counterSlice';
+
 
 export default function ProductItems({product}) {
  
-  let {counter,setCounter}=useContext(CounterContext)
+  // let {count,setCounter}=useContext(CounterContext)
+
+  let {count} =useSelector((store)=>store.counter)
+  let dispatch=useDispatch()
+
+
   function cssClass(...classes){
         console.log(classes);
         return classes.join(" ")
@@ -16,22 +24,20 @@ export default function ProductItems({product}) {
   }
     
     const handleAddToCart = () => {
-      setCounter(counter + 1);
+      // setCounter(count + 1);
+       dispatch(increase(count))
   
-      // Get existing cart items from local storage
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+       let cart = JSON.parse(localStorage.getItem("cart"));
   
-      // Check if product already exists in cart
-      let existingProduct = cart.find((item) => item.id === product.id);
+       let existingProduct = cart.find((item) => item.id === product.id);
   
       if (existingProduct) {
-        existingProduct.quantity += 1; // Increase quantity if already in cart
+        existingProduct.quantity += 1; 
       } else {
-        cart.push({ ...product, quantity: 1 }); // Add new product
+        cart.push({ ...product, quantity: 1 });
       }
   
-      // Save updated cart to local storage
-      localStorage.setItem("cart", JSON.stringify(cart));
+       localStorage.setItem("cart", JSON.stringify(cart));
   
        toast.success(`${product.title} added to cart!`, {
         position: "top-right",
@@ -61,8 +67,9 @@ export default function ProductItems({product}) {
 
         </Link>
         <div className="card-body d-flex flex-column p-3">
-                      <h5 className="card-text">{product.title.split(" ").splice(0,3).join(" ")}</h5>
-                      <p className="card-text">
+                       <h5 className="card-text">{product?.title ? product.title.split(' ').splice(0, 3).join(' ') : product.title}</h5>
+
+                       <p className="card-text">
                         {/* {product.description.split(" ").splice(0, 7).join(" ")+"....."} */}
                       </p>
                       <div className="d-flex justify-content-between align-items-center">

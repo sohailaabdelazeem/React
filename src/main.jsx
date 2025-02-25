@@ -8,16 +8,21 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import CounterContextProvider from './Context/CounterContect.jsx';
 import TonkenContextProvider from './Context/TokenContext.jsx';
 import './index.css'
+import { Provider } from 'react-redux';
+import myStore from './redux/store.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <CounterContextProvider>
-      <TonkenContextProvider>
-         
-             <App />
-      </TonkenContextProvider>
-        
+    <Provider store={myStore}>
+        <CounterContextProvider>
+          <TonkenContextProvider>
+            
+                <App />
+          </TonkenContextProvider>
+            
 
-    </CounterContextProvider>
+        </CounterContextProvider>
+    </Provider>
+  
   </StrictMode>,
 )

@@ -1,3 +1,23 @@
  body {
     background-color:#f8f9fa !important ;
  }
+
+ .notification {
+   position: fixed;
+   bottom:0;
+   right: 0;
+   background-color: teal;
+   padding: 1rem;
+   border-radius: 12px;
+   color: white;
+ }
+
+ .Notnotification {
+   position: fixed;
+   bottom:0;
+   right: 0;
+   background-color: red;
+   padding: 1rem;
+   border-radius: 12px;
+   color: white;
+ }

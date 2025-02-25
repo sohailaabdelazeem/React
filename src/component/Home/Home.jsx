@@ -3,15 +3,15 @@ import React, { useEffect, useState } from 'react'
 import styles from'./Home.module.css'
 import ProductItems from '../ProductItems/ProductItems';
 import Loader from '../loader/Loader';
-// import ReactPaginate from "react-paginate";
-
+import { Helmet } from 'react-helmet';
+ 
 
 const Home = () => {
   const [products,setProduct]=useState([])
   
-  // Pag
+  
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 5; // Show 5 products per page
+  const itemsPerPage = 5;  
 
 
   async function getProduct() {
@@ -26,17 +26,19 @@ const Home = () => {
   },[])
 
 
-   // Calculate total pages
-   const totalPages = Math.ceil(products.length / itemsPerPage);
+    const totalPages = Math.ceil(products.length / itemsPerPage);
 
-   // Get products for the current page
-   const startIndex = currentPage * itemsPerPage;
+    const startIndex = currentPage * itemsPerPage;
    const displayedProducts = products.slice(startIndex, startIndex + itemsPerPage);
  
 
   return (
     <div className="container">
+
       <div className="row my-5">
+        <Helmet>
+          <title>Home</title>
+        </Helmet>
         {products.length === 0 ? (
           <Loader />
         ) : (
@@ -44,7 +46,7 @@ const Home = () => {
         )}
       </div>
 
-      {/* Pagination Controls */}
+    
       <div className="d-flex justify-content-center my-4">
         <button 
           className="btn btn-primary mx-2" 

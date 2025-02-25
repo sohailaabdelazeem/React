@@ -1,15 +1,27 @@
 import React, { useContext } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { CounterContext } from '../../Context/CounterContect'
+import {  NavLink, useNavigate } from 'react-router-dom'
+// import { CounterContext } from '../../Context/CounterContect'
 import { TonkenContext } from '../../Context/TokenContext'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+// import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 const NavBar = () => {
-  let {counter}=useContext(CounterContext)
+  // let {count}=useContext(CounterContext)
   let {token,setToken}=useContext(TonkenContext)
    let navigate = useNavigate();
 
+  //  //////////
+  let {count}=useSelector((x)=>x.counter)
+  console.log(count);
+  // let {count} =useSelector((store)=>store.counter)
+  // let dispatch=useDispatch()
+
+
+  // ////////////
   function LogOut() {
     localStorage.removeItem("UserToken")
     setToken(null)
@@ -30,14 +42,15 @@ const NavBar = () => {
                     <li className="nav-item">
                     <NavLink className="nav-link " to={'/home'} >Home</NavLink>
                     </li>
-                    {/* <li className="nav-item">
+                    <li className="nav-item">
                     <NavLink className="nav-link" to={'/about'}>About</NavLink>
-                    </li> */}
+                    </li>
 
                     <li className="nav-item">
                     <NavLink className="nav-link" to={'/contect'} > 
                     <FontAwesomeIcon icon={faShoppingCart}  />  
-                     <span className='p-2 '>{counter}</span></NavLink>
+                     <span className='p-2 '>{count}</span></NavLink>
+ 
                     </li>
 
                     <li className="nav-item">

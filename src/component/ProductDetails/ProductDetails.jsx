@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Loader from '../loader/Loader'
 import style from './ProductDetails.module.css'
+import { Helmet } from 'react-helmet'
 
 export default function ProductDetails() {
 
@@ -26,6 +27,10 @@ export default function ProductDetails() {
     
   return (
     <div className='row my-5'>
+       
+        <Helmet>
+        <title>{details?.title}</title>
+        </Helmet>
         {details ? <>  <div className="col-md-4">
                 <img src={details.image} alt={details.title} className='w-100' />
         </div>

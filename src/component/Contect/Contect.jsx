@@ -1,14 +1,17 @@
 import React, { useContext, useEffect ,useState } from 'react'
 import axios from 'axios'
 import Electronics from '../Electronics/Electronics';
-// import { CounterContext } from '../../Context/CounterContect';
-// import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { decrease } from '../../redux/counterSlice';
 
 const Contect = () => {
-  const [cart, setCart] = useState([]); // State to store cart data
+  const [cart, setCart] = useState([]);
+  let {count} =useSelector((store)=>store.counter)
+  let dispatch=useDispatch()
   useEffect(() => {
-  const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const storedCart = JSON.parse(localStorage.getItem("cart"));
   setCart(storedCart);
+ 
 }, []);
   
   function renoveProduct(id) {
@@ -18,6 +21,8 @@ const Contect = () => {
      localStorage.setItem("cart", JSON.stringify(updatedCart));
 
      setCart(updatedCart);
+     dispatch(decrease(count))
+
   }
   return (
     
